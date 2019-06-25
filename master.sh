@@ -21,8 +21,9 @@ yum install -y kubelet kubeadm kubectl docker
 systemctl enable kubelet && systemctl start kubelet
 systemctl enable docker && systemctl start docker
 kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=Swap
+sleep 60
 joinCommand=$(kubeadm token create --print-join-command)
-echo "$joinCommand --ignore-preflight-errors=Swap,FileContent--proc-sys-net-bridge-bridge-nf-call-iptables" > /home/zippyops/jointoken.sh
+echo "$joinCommand --ignore-preflight-errors=Swap,FileContent--proc-sys-net-bridge-bridge-nf-call-iptables" > /root/jointoken.sh
 sleep 30
 mkdir /root/.kube
 cp /etc/kubernetes/admin.conf /root/.kube/config
